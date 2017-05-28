@@ -1,10 +1,9 @@
-package Aplicacion.Form.Bean;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Aplicacion.Form.Bean;
 
 import Aplicacion.Datos.ColeccionLibros;
 import Aplicacion.Modelo.Dominio.Libro;
@@ -15,13 +14,14 @@ import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author tienda
+ * @author Familia
  */
 @ManagedBean
 @ViewScoped
-public class LibroFormBean implements Serializable{
+public class LibroFormBean implements Serializable {
     private ColeccionLibros libros;
     private Libro libro;
+    private ArrayList<Libro> librosBusq = new ArrayList<Libro>();
     private String unIsbn;
     private String unAutor;
     private String unTitulo;
@@ -32,39 +32,31 @@ public class LibroFormBean implements Serializable{
     private String buscaTitulo;
     private String buscaCat;
 
+    /**
+     * Creates a new instance of LibroFormBean
+     */
     public LibroFormBean() {
-        libros=new ColeccionLibros();
-        categorias=new ArrayList();
-        categorias.add("Novela");
-        categorias.add("Autoayuda");
-        categorias.add("Politica");
-        cat=false;
+    libros = new ColeccionLibros();
+    categorias = new ArrayList ();
+    categorias.add("Novela");
+    categorias.add("Ciencia Ficcion");
+    categorias.add("Politica");
+    categorias.add("Ciencias exactas");
+    categorias.add("Economia");
+    categorias.add("Manual");
+    cat = false;
     }
-    
+
     public void agregarLibro(){
         setLibro(new Libro(getUnIsbn(),getUnAutor(),getUnTitulo(),getUnPrecio(),getUnaCategoria()));
-            getLibros().agregarLibros(getLibro());
-    }
-    public void buscarLibro(){
-        libro = new Libro();
-        libro = libros.buscarLibro(getBuscaTitulo(), getBuscaCat(),isCat());
-    }
-            
-    public LibroFormBean(ColeccionLibros libros, Libro libro, String unIsbn, String unAutor, String unTitulo, double unPrecio, String unaCategoria, ArrayList<String> categorias, boolean cat, String buscaTitulo, String buscaCat) {
-        this.libros = libros;
-        this.libro = libro;
-        this.unIsbn = unIsbn;
-        this.unAutor = unAutor;
-        this.unTitulo = unTitulo;
-        this.unPrecio = unPrecio;
-        this.unaCategoria = unaCategoria;
-        this.categorias = categorias;
-        this.cat = cat;
-        this.buscaTitulo = buscaTitulo;
-        this.buscaCat = buscaCat;
+                getLibros().agregarLibros(getLibro());
     }
     
-    
+    public void buscarLibro (){
+        //libro;
+        
+        setLibrosBusq(libros.buscarLibro (getBuscaTitulo(), getBuscaCat(), isCat()));
+    }
     /**
      * @return the libros
      */
@@ -145,7 +137,13 @@ public class LibroFormBean implements Serializable{
     /**
      * @param unPrecio the unPrecio to set
      */
-    
+    public void setUnPrecio(double unPrecio) {
+        this.unPrecio = unPrecio;
+    }
+
+    /**
+     * @return the unaCategoria
+     */
     public String getUnaCategoria() {
         return unaCategoria;
     }
@@ -214,14 +212,17 @@ public class LibroFormBean implements Serializable{
     }
 
     /**
-     * @param unPrecio the unPrecio to set
+     * @return the librosBusq
      */
-    public void setUnPrecio(double unPrecio) {
-        this.unPrecio = unPrecio;
+    public ArrayList<Libro> getLibrosBusq() {
+        return librosBusq;
+    }
+
+    /**
+     * @param librosBusq the librosBusq to set
+     */
+    public void setLibrosBusq(ArrayList<Libro> librosBusq) {
+        this.librosBusq = librosBusq;
     }
     
 }
-
-    /**
-     * Creates a new instance of LibroFormBeann
-     */

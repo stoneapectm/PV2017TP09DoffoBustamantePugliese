@@ -9,9 +9,9 @@ import java.io.Serializable;
 
 /**
  *
- * @author tienda
+ * @author Familia
  */
-public class Libro implements Serializable{
+public class Libro implements Serializable {
     private String isbn;
     private String autor;
     private String titulo;
@@ -98,6 +98,5 @@ public class Libro implements Serializable{
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
     
 }

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Punto 3 2017</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlProductos" header="Productos">
+            <h:form id="frmProductos">
+                <h:panelGrid id="tblBotones" columns="2">
+                    
+                </h:panelGrid>
+                <p:panelGrid id="tblMuestraProductos" columns="5">
+                    <p:dataTable id="dtTblProductos"
+                                 value="#{productoFormBean.lproductos.lproductos}"
+                                 var="cadaProducto"
+                                 emptyMessage="No hay Productos en la Base de Datos">
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{cadaProducto.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Codigo">
+                            <p:outputLabel value="#{cadaProducto.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Precio Unitario">
+                            <p:outputLabel value="#{cadaProducto.precio} $"/>
+                        </p:column>
+                        <p:column headerText="Precio en Cuotas">
+                            <p:outputLabel value="#{cadaProducto.precioenc()} $"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+ 
+                <p:panelGrid columns="2">
+                    <p:commandButton id="btnAgregarProducto"
+                                     value="Agregar"
+                                     oncomplete="PF('agregarProducto').show()"
+                                     update="tblMuestraProductos"
+                                     style="width: 120px"/>
+                    
+                    <p:outputLabel id="total" value="Total: #{productoFormBean.productoTotal()} $"/>
+                </p:panelGrid>
+            </h:form>        
+        </p:panel>
+        <p:dialog id="dlgAltaProducto" widgetVar="agregarProducto"
+                  header="Alta Productos" resizable="false"
+                  showEffect="explode" hideEffect="explode"
+                  modal="true">
+            <p:growl id="mensajesAltaProducto" showDetail="false"
+                     showSummary="true" sticky="false"/>
+            <h:form id="frmAltaProducto">
+                <p:panelGrid id="tblAltaProductos" columns="2">
+                    <p:outputLabel for="txtISBN" value="Nombre: "/>
+                    <p:inputText id="txtISBN" value="#{productoFormBean.unNombre}" required="true" />
+                    <p:outputLabel id="lblTitulo" value="Codigo: "/>
+                    <p:inputText id="txtTitulo" value="#{productoFormBean.unCodigo}" required="true"/>
+                    <p:outputLabel id="lblAutor" value="Precio: "/>
+                    <p:inputText id="txtAutor" value="#{productoFormBean.unPrecio}" required="true"/>
+                    <p:outputLabel id="lblCuota" value="Cuotas: "/>
+                    <p:selectOneMenu id="cuota"
+                                     value="#{productoFormBean.unaCuota}"
+                                     panelStyle="width:180px" effect="fade"
+                                     style="width:160px" filter="true">
+                        <f:selectItems value="#{productoFormBean.cuotas}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btnAgregarProducto" value="Agregar"
+                                     actionListener="#{productoFormBean.agregarProducto()}"
+                                     update=":frmProductos :mensajesAltaProducto"
+                                     oncomplete="PF('agregarProducto').hide()">
+                        <p:confirm header="Pedido de Confirmacion"
+                                   message="¿Confirma Agregar Producto?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton id="btnCerrarAltaProducto"
+                                     value="Salir"
+                                     oncomplete="PF('agregarProducto').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:confirmDialog id="confirmacionDialogoProducto"
+                         global="true" showEffect="fade"
+                         hideEffect="fade">
+            <h:form id="frmConfirmacionOperacionProducto">
+                <p:commandButton value="SI" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-close"
+                                 style="float: right;"/>
+                <p:commandButton value="NO" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+                                 style="float: right;"/>
+            </h:form>
+        </p:confirmDialog>
+    </h:body>
+</html>
+

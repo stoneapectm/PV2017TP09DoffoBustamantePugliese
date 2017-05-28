@@ -12,8 +12,6 @@ import java.io.Serializable;
  * @author tienda
  */
 public class Triangulo implements Serializable{
-    private double perim;
-    private double d;
     private Pendiente p;
     private Punto unPuntoA;
     private Punto unPuntoB;
@@ -22,9 +20,7 @@ public class Triangulo implements Serializable{
     public Triangulo() {
     }
 
-    public Triangulo(double d, Pendiente p, Punto unPuntoA, Punto unPuntoB, Punto unPuntoC, double perim) {
-        this.perim = perim;
-        this.d = d;
+    public Triangulo(Pendiente p, Punto unPuntoA, Punto unPuntoB, Punto unPuntoC) {
         this.p = p;
         this.unPuntoA = unPuntoA;
         this.unPuntoB = unPuntoB;
@@ -32,36 +28,17 @@ public class Triangulo implements Serializable{
     }
     
     public boolean verificarTriangulo(Punto unPuntoA, Punto unPuntoB, Punto unPuntoC){
-        boolean bandera = true;
-        p = new Pendiente();
-        double pendiente1 = p.calcularPendiente(unPuntoA, unPuntoB);
-        double pendiente2 = p.calcularPendiente(unPuntoB, unPuntoC);
-        double pendiente3 = p.calcularPendiente(unPuntoA, unPuntoC);
-        
-        if (pendiente1 == pendiente2){
-            if (pendiente2 == pendiente3){
-                bandera = false;
+        boolean bandera=true;
+        setP(new Pendiente());
+        double pendiente1=getP().calcularPendiente(unPuntoA, unPuntoB);
+        double pendiente2=getP().calcularPendiente(unPuntoB, unPuntoC);
+        double pendiente3=getP().calcularPendiente(unPuntoA, unPuntoC);
+        if(pendiente1==pendiente2){
+            if(pendiente2==pendiente3){
+                bandera=false;
             }
         }
         return bandera;
-    }
-    
-    public double calcularDistancia (Punto A, Punto B){
-        d=Math.sqrt(Math.pow(B.getX()-A.getX(),2)+Math.pow(B.getY()-A.getY(),2));
-        return d;
-    }
-    
-    public double calcularPerimetro(Punto unPuntoA, Punto unPuntoB, Punto unPuntoC){
-        boolean verif;
-        setPerim(0);
-        verif = verificarTriangulo(unPuntoA, unPuntoB, unPuntoC);
-        if (verif == true){
-            double distancia1 = calcularDistancia(unPuntoA, unPuntoB);
-            double distancia2 = calcularDistancia(unPuntoB, unPuntoC);
-            double distancia3 = calcularDistancia(unPuntoA, unPuntoC);
-            setPerim(distancia1+distancia2+distancia3);
-        }
-        return getPerim();
     }
 
     /**
@@ -120,33 +97,7 @@ public class Triangulo implements Serializable{
         this.unPuntoC = unPuntoC;
     }
 
-    /**
-     * @return the d
-     */
-    public double getD() {
-        return d;
-    }
-
-    /**
-     * @param d the d to set
-     */
-    public void setD(double d) {
-        this.d = d;
-    }
-
-    /**
-     * @return the perim
-     */
-    public double getPerim() {
-        return perim;
-    }
-
-    /**
-     * @param perim the perim to set
-     */
-    public void setPerim(double perim) {
-        this.perim = perim;
-    }
+   
     
     
 }

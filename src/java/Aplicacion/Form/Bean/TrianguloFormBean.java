@@ -5,20 +5,20 @@
  */
 package Aplicacion.Form.Bean;
 
+import Aplicacion.Modelo.Dominio.Distancia;
 import Aplicacion.Modelo.Dominio.Punto;
 import Aplicacion.Modelo.Dominio.Triangulo;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author tienda
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class TrianguloFormBean implements Serializable{
-    private double d;
     private double x1;
     private double y1;
     private double x2;
@@ -27,38 +27,26 @@ public class TrianguloFormBean implements Serializable{
     private double y3;
     private Triangulo unTriangulo;
     private String esTriangulo;
-    private double unPerimetro;
-
+    private Distancia distancia;
+    private double perimetro;
     /**
      * Creates a new instance of TrianguloFormBean
      */
     public TrianguloFormBean() {
+        perimetro=0;
     }
     
     public void ingresarPuntos(){
         setEsTriangulo("No es Triangulo");
-        Punto unPuntoA = new Punto(getX1(), getY1());
-        Punto unPuntoB = new Punto(getX2(), getY2());
-        Punto unPuntoC = new Punto(getX3(), getY3());
-        unTriangulo = new Triangulo();
-        
-        if (unTriangulo.verificarTriangulo(unPuntoA, unPuntoB, unPuntoC)){
+        Punto unPuntoA=new Punto(getX1(), getY1());
+        Punto unPuntoB=new Punto(getX2(), getY2());
+        Punto unPuntoC=new Punto(getX3(), getY3());
+        setUnTriangulo(new Triangulo());
+        setDistancia(new Distancia());
+        if(getUnTriangulo().verificarTriangulo(unPuntoA,unPuntoB,unPuntoC)){
             setEsTriangulo("Es Triangulo");
-            setUnPerimetro(unTriangulo.calcularPerimetro(unPuntoA, unPuntoB, unPuntoC));
+            setPerimetro(getDistancia().calcularDistancia(unPuntoA, unPuntoB) + getDistancia().calcularDistancia(unPuntoB, unPuntoC) + getDistancia().calcularDistancia(unPuntoA, unPuntoC));
         }
-    }
-
-    public TrianguloFormBean(double d, double x1, double y1, double x2, double y2, double x3, double y3, Triangulo unTriangulo, String esTriangulo, double unPerimetro) {
-        this.d = d;
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-        this.x3 = x3;
-        this.y3 = y3;
-        this.unTriangulo = unTriangulo;
-        this.esTriangulo = esTriangulo;
-        this.unPerimetro = unPerimetro;
     }
 
     /**
@@ -174,32 +162,31 @@ public class TrianguloFormBean implements Serializable{
     }
 
     /**
-     * @return the d
+     * @return the distancia
      */
-    public double getD() {
-        return d;
+    public Distancia getDistancia() {
+        return distancia;
     }
 
     /**
-     * @param d the d to set
+     * @param distancia the distancia to set
      */
-    public void setD(double d) {
-        this.d = d;
+    public void setDistancia(Distancia distancia) {
+        this.distancia = distancia;
     }
 
     /**
-     * @return the unPerimetro
+     * @return the perimetro
      */
-    public double getUnPerimetro() {
-        return unPerimetro;
+    public double getPerimetro() {
+        return perimetro;
     }
 
     /**
-     * @param unPerimetro the unPerimetro to set
+     * @param perimetro the perimetro to set
      */
-    public void setUnPerimetro(double unPerimetro) {
-        this.unPerimetro = unPerimetro;
+    public void setPerimetro(double perimetro) {
+        this.perimetro = perimetro;
     }
-    
     
 }

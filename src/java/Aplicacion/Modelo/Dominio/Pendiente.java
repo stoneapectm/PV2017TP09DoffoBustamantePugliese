@@ -22,7 +22,21 @@ public class Pendiente implements Serializable{
     }
     
     public double calcularPendiente(Punto A, Punto B){
-        p = ((A.getY()-B.getY())/(A.getX()-B.getX()));
+        setP((A.getY()-B.getY())/(A.getX()-B.getX()));
+        return getP();
+    }
+
+    /**
+     * @return the p
+     */
+    public double getP() {
         return p;
+    }
+
+    /**
+     * @param p the p to set
+     */
+    public void setP(double p) {
+        this.p = p;
     }
 }

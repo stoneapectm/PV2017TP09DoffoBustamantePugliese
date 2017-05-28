@@ -12,25 +12,32 @@
                  style="width: 400px"
                  footer="Escuela de Minas">
             <h:form id="frmDistancia">
+                <p:panelGrid columns="1">
                 <h:panelGrid id="tblPerimetro" columns="4">
                     <p:outputLabel id="lblA1" value="Punto(" />
-                    <p:inputText id="txtAX1" value="#{trianguloFormBean.x1}" size="3" />
-                    <p:inputText id="txtAY1" value="#{trianguloFormBean.y1}" size="3" />
+                    <p:inputText id="txtAX1" value="#{trianguloFormBean.x1}" size="5" />
+                    <p:inputText id="txtAY1" value="#{trianguloFormBean.y1}" size="5" />
                     <p:outputLabel id="lblA2" value=")" />
 
                     <p:outputLabel id="lblB1" value="Punto(" />
-                    <p:inputText id="txtBX1" value="#{trianguloFormBean.x2}" size="3" />
-                    <p:inputText id="txtBY1" value="#{trianguloFormBean.y2}" size="3" />
+                    <p:inputText id="txtBX1" value="#{trianguloFormBean.x2}" size="5" />
+                    <p:inputText id="txtBY1" value="#{trianguloFormBean.y2}" size="5" />
                     <p:outputLabel id="lblB2" value=")" />
 
                     <p:outputLabel id="lblC1" value="Punto(" />
-                    <p:inputText id="txtCX1" value="#{trianguloFormBean.x3}" size="3" />
-                    <p:inputText id="txtCY1" value="#{trianguloFormBean.y3}" size="3" />
+                    <p:inputText id="txtCX1" value="#{trianguloFormBean.x3}" size="5" />
+                    <p:inputText id="txtCY1" value="#{trianguloFormBean.y3}" size="5" />
                     <p:outputLabel id="lblC2" value=")" />
+                    <p:panelGrid columns="2">
+                        <p:commandButton id="btnCalcular" value="Verificar" update="lblValorTriangulo lblValorPerimetro" 
+                                         action="#{trianguloFormBean.ingresarPuntos()}" />
+                        <p:outputLabel id="lblValorTriangulo" value="#{trianguloFormBean.esTriangulo}"/>
 
-                    <p:commandButton id="btnCalcular" value="Calcular" update="lblValorPerimetro" actionListener="#{trianguloFormBean.ingresarPuntos()}"/>
-                    <p:outputLabel id="lblValorPerimetro" value="#{trianguloFormBean.unPerimetro}"/>
+                        <p:outputLabel id="lblPerimetro" value="Perimetro: "/>
+                        <p:outputLabel id="lblValorPerimetro" value="#{trianguloFormBean.perimetro}"/>
+                    </p:panelGrid>
                 </h:panelGrid>
+                </p:panelGrid>   
             </h:form>
         </p:panel>
     </h:body>
